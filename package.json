@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:test": "next dev",
+    "prebuild": "npx tsx scripts/verify-auth-env.ts",
     "build": "next build",
+    "prevercel-build": "npx tsx scripts/verify-auth-env.ts",
     "vercel-build": "next build",
     "postinstall": "prisma generate",
     "prisma:generate": "prisma generate",
@@ -13,8 +15,10 @@
     "build:full": "npm run build && npm run build:worker",
     "start": "next start",
     "preview": "wrangler pages dev .worker-next --compatibility-flags=nodejs_compat",
+    "check:auth-links": "scripts/check-auth-links.sh",
     "deploy": "wrangler deploy",
-    "lint": "eslint"
+    "lint": "eslint",
+    "stripe:doctor": "node --env-file=.env.local -r ts-node/register src/scripts/stripe-doctor.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^4.10.0",
